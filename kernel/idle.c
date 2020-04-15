@@ -13,7 +13,7 @@
 #include <power/power.h>
 #include <stdbool.h>
 
-#include <tfm_flash_veneers.h>
+// #include <tfm_flash_veneers.h>
 
 #ifdef CONFIG_TICKLESS_IDLE_THRESH
 #define IDLE_THRESH CONFIG_TICKLESS_IDLE_THRESH
@@ -164,7 +164,7 @@ void apply_update_blocking(struct update_header *hdr) {
     u32_t *update_rodata = (u32_t *)((u8_t *)hdr + sizeof(struct update_header) + hdr->text_size);
 
     // write app .text
-    while(tfm_flash_is_busy());
+    //while(tfm_flash_is_busy());
     /*
     printk("writing following text (%d bytes) to %x: ", hdr->text_size, hdr->text_start);
     for (int i = 0; i < (hdr->text_size / 4); i++) {
@@ -172,6 +172,7 @@ void apply_update_blocking(struct update_header *hdr) {
     }
     printk("\n");
     */
+    /*
     int rc = tfm_flash_write(hdr->text_start, update_text, hdr->text_size);
     if (rc != 0) {
         printk("text flash write returned with code %d\n", rc);
@@ -179,6 +180,7 @@ void apply_update_blocking(struct update_header *hdr) {
 
     // write app .rodata
     while(tfm_flash_is_busy());
+    */
     /*
     printk("writing following rodata (%d bytes) to %x: ", hdr->rodata_size, hdr->rodata_start);
     for (int i = 0; i < (hdr->rodata_size / 4); i++) {
@@ -186,6 +188,7 @@ void apply_update_blocking(struct update_header *hdr) {
     }
     printk("\n");
     */
+    /*
     rc = tfm_flash_write(hdr->rodata_start, update_rodata, hdr->rodata_size);
     if (rc != 0) {
         printk("rodata flash write returned with code %d\n", rc);
@@ -207,6 +210,7 @@ void apply_update_blocking(struct update_header *hdr) {
     }
 
     // write code relocation addresses
+    */
     /*
     while(tfm_flash_is_busy());
     rc = tfm_flash_write(hdr->update_text_start_addr, &hdr->text_start, 4);
@@ -248,6 +252,7 @@ void apply_update_blocking(struct update_header *hdr) {
     */
 
     // read main ptr for a sanity check
+    /*
     while(tfm_flash_is_busy());
     u32_t buf;
     rc = tfm_flash_read(hdr->main_ptr_addr, &buf, 4);
@@ -270,8 +275,10 @@ void apply_update_blocking(struct update_header *hdr) {
         printk("flash read returned with code %d\n", rc);
     }
     printk("*0xffe00 = %x\n", buf);
+    */
 }
 
+/*
 void update_uart_rx_cb(struct device *x) {
     if (uart_irq_rx_ready(x)) {
         while (true) {
@@ -307,6 +314,7 @@ void update_uart_init() {
         printk("flash init failed with code %d\n", rc);
     }
 }
+*/
 
 #if K_IDLE_PRIO < 0
 #define IDLE_YIELD_IF_COOP() k_yield()
@@ -328,7 +336,7 @@ void idle(void *unused1, void *unused2, void *unused3)
 	z_timestamp_idle = k_cycle_get_32();
 #endif
 
-    update_uart_init();
+    //update_uart_init();
 
 	while (true) {
 #if SMP_FALLBACK

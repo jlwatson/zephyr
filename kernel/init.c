@@ -11,6 +11,7 @@
  * This module contains routines that are used to initialize the kernel.
  */
 
+#include <autoconf.h>
 #include <zephyr.h>
 #include <offsets_short.h>
 #include <kernel.h>
@@ -35,7 +36,7 @@
 #include <stdbool.h>
 #include <debug/gcov.h>
 
-#include <tfm_flash_veneers.h>
+//#include <tfm_flash_veneers.h>
 
 #define IDLE_THREAD_NAME	"idle"
 #define LOG_LEVEL CONFIG_KERNEL_LOG_LEVEL
@@ -308,6 +309,7 @@ static void bg_thread_main(void *unused1, void *unused2, void *unused3)
     //volatile int b = 1;
     //while(b);
 
+    /*
     if (__update_flag) {
         //printk("calling main_ptr(%p) @ %p\n", &main_ptr, main_ptr);
         main_ptr();
@@ -315,6 +317,12 @@ static void bg_thread_main(void *unused1, void *unused2, void *unused3)
         //printk("calling main @ %p\n", &main);
         main();
     }
+    */
+//    printk("calling main at %p\n", main);
+//#ifdef CONFIG_IS_SPM
+//    printk("derp?\n");
+//#endif
+    main();
 
 	/* Mark nonessenrial since main() has no more work to do */
 	z_main_thread.base.user_options &= ~K_ESSENTIAL;
