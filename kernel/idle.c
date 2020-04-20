@@ -240,23 +240,11 @@ struct update_header {
     }
     printk("*main_ptr_addr(%x) = %x\n", hdr->main_ptr_addr, buf);
     */
-    
-    /*
-    printk("\n");
-    while(tfm_flash_is_busy());
-    rc = tfm_flash_read(0xe0000, &buf, 4);
-    if (rc != 0) {
-        printk("flash read returned with code %d\n", rc);
-    }
-    printk("*0xe0000 = %x\n", buf);
-
-    while(tfm_flash_is_busy());
-    rc = tfm_flash_read(0xffe00, &buf, 4);
-    if (rc != 0) {
-        printk("flash read returned with code %d\n", rc);
-    }
-    printk("*0xffe00 = %x\n", buf);
-    */
+//    volatile int b = 1;
+//    while(b);
+      // set update flag in RAM
+//    extern volatile u32_t __update_flag;
+//    __update_flag = 1;    
 //}
 
 /*
@@ -296,6 +284,10 @@ void update_uart_init() {
     }
 }
 */
+
+void k_trigger_update() {
+    //printk("haha!\n");
+}
 
 #if K_IDLE_PRIO < 0
 #define IDLE_YIELD_IF_COOP() k_yield()
