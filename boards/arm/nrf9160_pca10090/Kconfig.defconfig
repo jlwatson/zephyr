@@ -64,6 +64,18 @@ config FLASH_LOAD_OFFSET
 config FLASH_LOAD_SIZE
 	default $(dt_chosen_reg_size_hex,$(DT_CHOSEN_Z_CODE_PARTITION))
 
+config APP_FLASH_OFFSET
+	hex "app flash offset"
+
+config APP_FLASH_SIZE
+	hex "app flash size"
+
+config APP_SRAM_OFFSET
+	hex "app sram offset"
+
+config APP_SRAM_SIZE
+	hex "app sram size"
+
 endif # BOARD_NRF9160_PCA10090NS
 
 endif # BOARD_NRF9160_PCA10090 || BOARD_NRF9160_PCA10090NS
