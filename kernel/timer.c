@@ -55,7 +55,9 @@ void z_timer_expiration_handler(struct _timeout *t)
 
 #ifdef CONFIG_LIVE_UPDATE
     if(lu_trigger_on_timer(timer)) {
-        lu_update_at_timer(timer);
+        printk("timer before: %p\n", timer);
+        lu_update_at_timer(&timer);
+        printk("timer after: %p\n", timer);
     }
 #endif // CONFIG_LIVE_UPDATE
 
@@ -63,6 +65,7 @@ void z_timer_expiration_handler(struct _timeout *t)
 	 * if the timer is periodic, start it again; don't add _TICK_ALIGN
 	 * since we're already aligned to a tick boundary
 	 */
+    printk("timer period: %d\n", timer->period);
 	if (timer->period > 0) {
 		z_add_timeout(&timer->timeout, z_timer_expiration_handler,
 			     timer->period);
